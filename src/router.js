@@ -14,6 +14,7 @@ export default new Router({
       { name:'Start', path:'/', component: null},
       { name:'Film', path:'/film/:id', component: Film},
       { name:'Films', path:'/films/:name', component: Films},
+      { name:'FilterFilms', path:'/:name', component: Films},
       { name:'Top', path:'/:name', component: Films},
       { path:'*', component: NotFound}
       ],

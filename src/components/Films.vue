@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid">
+    <div v-if="!isFinded">
+      <h1>Совпадений не найдено</h1>
+    </div>
     <ul>
       <li v-for="film of films" :key="film.id">
         <div class="product-wrap">
@@ -28,7 +31,7 @@
         </div>
       </li>
     </ul>
-    <div class="row">
+    <div v-if="isFinded" class="row">
       <div class="col"></div>
       <div class="col">
         <div
@@ -118,9 +121,16 @@ export default {
       currentPage: 1,
       paramsApi: '',
       secondApi: '',
+      isFinded: true,
     };
   },
   mounted: function () {
+      this.numOfPages = this.$route.params.data.pagesCount;
+            if(this.numOfPages == 0){
+        this.isFinded = false;
+      } else{
+        this.isFinded = true;
+      }
     this.checkPlace(1);
     axios
       .get('https://kinopoiskapiunofficial.tech/' + this.secondApi, {
@@ -169,10 +179,16 @@ export default {
   watch: {
     '$route.params.data'() {
       this.films = this.$route.params.data.films;
+
     },
     '$route.params.name'() {
       this.currentPage = 1;
       this.numOfPages = this.$route.params.data.pagesCount;
+            if(this.numOfPages == 0){
+        this.isFinded = false;
+      } else{
+        this.isFinded = true;
+      }
     },
   },
 };
