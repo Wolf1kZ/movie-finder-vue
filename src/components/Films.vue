@@ -125,12 +125,7 @@ export default {
     };
   },
   mounted: function () {
-      this.numOfPages = this.$route.params.data.pagesCount;
-            if(this.numOfPages == 0){
-        this.isFinded = false;
-      } else{
-        this.isFinded = true;
-      }
+           
     this.checkPlace(1);
     axios
       .get('https://kinopoiskapiunofficial.tech/' + this.secondApi, {
@@ -141,9 +136,15 @@ export default {
         console.log(response.data);
         this.films = response.data.films;
         this.numOfPages = response.data.pagesCount;
+         if(this.numOfPages == 0){
+        this.isFinded = false;
+      } else{
+        this.isFinded = true;
+      }
       })
       .catch((e) => console.log(e))
       .finally(() => console.log('Data loading complete'));
+      
   },
   methods: {
     checkPlace(page) {
