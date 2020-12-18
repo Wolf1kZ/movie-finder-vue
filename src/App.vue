@@ -29,9 +29,8 @@
                 <button @click="
                     (ifwindow = !ifwindow),
                       shareData(TopApi, { type: 'TOP_250_BEST_FILMS' }, 'Top', {
-                        name: 'top250',
+                        name: '250',
                         data: '',
-                        type: 'TOP_250_BEST_FILMS',
                       })
                   ">
                   250 Лучших
@@ -45,9 +44,8 @@
                         { type: 'TOP_100_POPULAR_FILMS' },
                         'Top',
                         {
-                          name: 'top100',
+                          name: '100',
                           data: '',
-                          type: 'TOP_100_POPULAR_FILMS',
                         }
                       )
                   ">
@@ -58,9 +56,8 @@
                 <button @click="
                     (ifwindow = !ifwindow),
                       shareData(TopApi, { type: 'TOP_AWAIT_FILMS' }, 'Top', {
-                        name: 'topAwait',
+                        name: 'Await',
                         data: '',
-                        type: 'TOP_AWAIT_FILMS',
                       })
                   ">
                   Ожидаемые
@@ -76,7 +73,6 @@
                   <multiselect v-model="filtypes" :options="type" :multiple="false" :close-on-select="false" :preselect-first="true" :preserve-search="true" placeholder="Выберите жанры" label="name" track-by="name">
                     <template slot="selection" slot-scope="{ values, isOpen }">
                       <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                      {{ values.length }} жанров выбрано
                       </span>
                     </template>
                   </multiselect>
@@ -86,7 +82,7 @@
                   <multiselect v-model="filcountries" :options="countries" :multiple="true" :close-on-select="false"  :preserve-search="true" placeholder="Выберите страны" label="country" track-by="country">
                 <template class="abc" slot="selection" slot-scope="{ values, isOpen }">
                   <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                    {{ values.length }} стран выбрано
+                    Выбрано {{ values.length }}
                     </span>
                </template>
               </multiselect>
@@ -98,7 +94,6 @@
                   <multiselect v-model="filsort" :options="sort" :multiple="false" :close-on-select="false" :preselect-first="true" :preserve-search="true" placeholder="Выберите жанры" label="name" track-by="name">
                     <template slot="selection" slot-scope="{ values, isOpen }">
                       <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                      {{ values.length }} жанров выбрано
                       </span>
                     </template>
                   </multiselect>
@@ -108,7 +103,7 @@
                   <multiselect v-model="filgenres" :options="genres" :multiple="true" :close-on-select="false"  :preserve-search="true" placeholder="Выберите жанры" label="genre" track-by="genre">
                     <template slot="selection" slot-scope="{ values, isOpen }">
                       <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                      {{ values.length }} жанров выбрано
+                       Выбрано {{ values.length }}
                       </span>
                     </template>
                   </multiselect>
@@ -216,9 +211,7 @@ export default {
     axios
       .get('https://kinopoiskapiunofficial.tech/api/v2.1/films/filters', {
         headers: { 
-          'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6',
-          'Access-Control-Allow-Origin': '*'
-          },
+          'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6'},
       })
       .then((response) => {
         console.log(response.data);
@@ -257,8 +250,7 @@ export default {
         axios
           .get('https://kinopoiskapiunofficial.tech' + secPartApi, {
             headers: { 
-              'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6' ,
-              'Access-Control-Allow-Origin': '*'},
+              'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6' },
             params: paramsApi,
           })
           .then((response) => {

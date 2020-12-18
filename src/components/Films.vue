@@ -152,7 +152,9 @@ export default {
         this.paramsApi = { keyword: this.$route.params.name, page: page };
         this.secondApi = '/api/v2.1/films/search-by-keyword';
       } else if (this.$route.name == 'Top') {
-        this.paramsApi = { type: this.$route.params.type, page: page };
+        if(this.$route.params.name == '250') this.paramsApi = { type: 'TOP_250_BEST_FILMS' , page: page };
+        if(this.$route.params.name == '100') this.paramsApi = { type: 'TOP_100_POPULAR_FILMS' , page: page };
+        if(this.$route.params.name == 'Await') this.paramsApi = { type: 'TOP_AWAIT_FILMS', page: page };
         this.secondApi = '/api/v2.2/films/top';
       }
     },
