@@ -155,6 +155,7 @@
                           ratingTo: rating[1],
                           yearFrom: year[0],
                           yearTo: year[1],
+                          page:1
                         },
                         'Films',
                         {
@@ -214,14 +215,18 @@ export default {
   created() {
     axios
       .get('https://kinopoiskapiunofficial.tech/api/v2.1/films/filters', {
-        headers: { 'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6' },
+        headers: { 
+          'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6',
+          'Access-Control-Allow-Origin': '*'
+          },
       })
       .then((response) => {
         console.log(response.data);
         this.countries = response.data.countries;
         this.genres = response.data.genres;
-        for( let i = 0; i< response.data.countries.length; i++) this.idfilcountries[i] = response.data.countries[i].id;
-        for( let i = 0; i< response.data.genres.length; i++) this.idfilgenres[i] = response.data.genres[i].id;
+        for( let i = 0; i< response.data.genres.length ; i++) this.idfilgenres[i] = response.data.genres[i].id;
+        for( let i = 0; i< response.data.countries.length ; i++) this.idfilcountries[i] = response.data.countries[i].id; 
+
       })
       .catch((e) => console.log(e))
       .finally(() => console.log('Data loading complete'));
@@ -231,19 +236,29 @@ export default {
   methods: {
     shareData(secPartApi, paramsApi, routerName, routerParams) {
       if( secPartApi == this.FiltersAPI){
-        if(this.filgenres.length != 0){
-          this.idfilgenres = []; 
-          for( let i = 0; i< this.filgenres.length; i++) this.idfilgenres[i] = this.filgenres[i].id;
-          } 
-        if(this.filcountries.length != 0){
-        this.idfilcountries = [];
-        for( let i = 0; i< this.filcountries.length; i++) this.idfilcountries[i] = this.filcountries[i].id;
+        if(this.filgenres != null && this.filgenres.length != 0){
+          paramsApi.genre = []; 
+          for( let i = 0; i < this.filgenres.length; i++) paramsApi.genre[i] = this.filgenres[i].id;
+        } 
+        if(this.filcountries != null && this.filcountries.length != 0){
+        paramsApi.country = [];
+        for( let i = 0; i< this.filcountries.length; i++) paramsApi.country[i] = this.filcountries[i].id; 
         }
+        console.log(paramsApi.genre)
+        console.log(paramsApi.country)
+        console.log(paramsApi.order)
+        console.log(paramsApi.type)
+        console.log(paramsApi.ratingFrom)
+        console.log(paramsApi.ratingTo)
+        console.log(paramsApi.yearFrom)
+        console.log(paramsApi.yearTo)
       }
       if (this.search.trim() != '' || secPartApi != this.KeywordApi ) {
         axios
           .get('https://kinopoiskapiunofficial.tech' + secPartApi, {
-            headers: { 'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6' },
+            headers: { 
+              'X-API-KEY': '27b18e18-799e-4f9a-bdcc-bc8e6a3348a6' ,
+              'Access-Control-Allow-Origin': '*'},
             params: paramsApi,
           })
           .then((response) => {
