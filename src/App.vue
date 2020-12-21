@@ -152,9 +152,9 @@
                           yearTo: year[1],
                           page:1
                         },
-                        'Films',
+                        'FilterFilms',
                         {
-                          name: 'searchByFilters',
+                          name: int,
                           data: '',
                         })
                         ">
@@ -189,6 +189,7 @@ export default {
       genres: null,
       filtypes: null,
       id: null,
+      int: null,
       type: [ 
         {name: 'фильм', type: 'FILM' },
         {name: 'тв-шоу', type: 'TV_SHOW' },
@@ -217,24 +218,25 @@ export default {
         console.log(response.data);
         this.countries = response.data.countries;
         this.genres = response.data.genres;
-        for( let i = 0; i< response.data.genres.length ; i++) this.idfilgenres[i] = response.data.genres[i].id;
-        for( let i = 0; i< response.data.countries.length ; i++) this.idfilcountries[i] = response.data.countries[i].id; 
+        //for( let i = 0; i< response.data.genres.length ; i++) this.idfilgenres[i] = response.data.genres[i].id;
+        //for( let i = 0; i< response.data.countries.length ; i++) this.idfilcountries[i] = response.data.countries[i].id; 
 
       })
       .catch((e) => console.log(e))
       .finally(() => console.log('Data loading complete'));
+      this.int = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000
       
 
   },
   methods: {
     shareData(secPartApi, paramsApi, routerName, routerParams) {
       if( secPartApi == this.FiltersAPI){
+        this.int = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000
+        paramsApi.genre = []; 
         if(this.filgenres != null && this.filgenres.length != 0){
-          paramsApi.genre = []; 
           for( let i = 0; i < this.filgenres.length; i++) paramsApi.genre[i] = this.filgenres[i].id;
         } 
         if(this.filcountries != null && this.filcountries.length != 0){
-        paramsApi.country = [];
         for( let i = 0; i< this.filcountries.length; i++) paramsApi.country[i] = this.filcountries[i].id; 
         }
         console.log(paramsApi.genre)

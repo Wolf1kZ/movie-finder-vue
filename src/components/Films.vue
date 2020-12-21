@@ -156,7 +156,7 @@ export default {
         if(this.$route.params.name == '100') this.paramsApi = { type: 'TOP_100_POPULAR_FILMS' , page: page };
         if(this.$route.params.name == 'Await') this.paramsApi = { type: 'TOP_AWAIT_FILMS', page: page };
         this.secondApi = '/api/v2.2/films/top';
-      }
+      } else if (this.$route.name == 'FilterFilms') this.secondApi = '/api/v2.1/films/search-by-filters';
     },
     changePage(page) {
       this.checkPlace(page);
@@ -182,7 +182,6 @@ export default {
   watch: {
     '$route.params.data'() {
       this.films = this.$route.params.data.films;
-
     },
     '$route.params.name'() {
       this.currentPage = 1;
